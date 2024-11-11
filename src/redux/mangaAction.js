@@ -1,27 +1,34 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const header = {
+    'x-rapidapi-key': 'd99907482cmsh9ab0fc66bc0daf3p153337jsn95f51e31894e',
+    'x-rapidapi-host': 'mangaverse-api.p.rapidapi.com'
+}
+
+const baseUrl = "https://mangaverse-api.p.rapidapi.com/manga"
+
 export const fetchManga = createAsyncThunk(
     "manga/fetchManga",
     async (data, thunkApi) => {
         const options = {
             method: 'GET',
-            url: 'https://mangaverse-api.p.rapidapi.com/manga/fetch',
+            url: `${baseUrl}/fetch`,
             params: {
                 page: '1',
                 genres: 'Harem,Fantasy',
                 nsfw: 'true',
                 type: 'all'
             },
-            headers: {
-                'x-rapidapi-key': 'd99907482cmsh9ab0fc66bc0daf3p153337jsn95f51e31894e',
-                'x-rapidapi-host': 'mangaverse-api.p.rapidapi.com'
-            }
+            headers: header
         };
 
         try {
             const response = await axios.request(options);
-            console.log("🚀  response:-", response?.data);
+            console.log("🚀  response:-", response)
+            if (response && response.status == 200) {
+                return response?.data
+            }
         } catch (error) {
             console.log("🚀  error:-", error)
         }
@@ -33,22 +40,21 @@ export const fetchLatest = createAsyncThunk(
     async (data, thunkApi) => {
         const options = {
             method: 'GET',
-            url: 'https://mangaverse-api.p.rapidapi.com/manga/latest',
+            url: `${baseUrl}/latest`,
             params: {
                 page: '1',
                 genres: 'Harem,Fantasy',
                 nsfw: 'true',
                 type: 'all'
             },
-            headers: {
-                'x-rapidapi-key': 'd99907482cmsh9ab0fc66bc0daf3p153337jsn95f51e31894e',
-                'x-rapidapi-host': 'mangaverse-api.p.rapidapi.com'
-            }
+            headers: header
         };
 
         try {
             const response = await axios.request(options);
-            console.log("🚀  response:-", response?.data);
+            if (response && response.status == 200) {
+                return response?.data
+            }
         } catch (error) {
             console.log("🚀  error:-", error)
         }
@@ -60,21 +66,21 @@ export const searchManga = createAsyncThunk(
     async (data, thunkApi) => {
         const options = {
             method: 'GET',
-            url: 'https://mangaverse-api.p.rapidapi.com/manga/search',
+            url: `${baseUrl}/search`,
             params: {
                 text: 'legendary',
                 nsfw: 'true',
                 type: 'all'
             },
-            headers: {
-                'x-rapidapi-key': 'd99907482cmsh9ab0fc66bc0daf3p153337jsn95f51e31894e',
-                'x-rapidapi-host': 'mangaverse-api.p.rapidapi.com'
-            }
+            headers: header
         };
 
         try {
             const response = await axios.request(options);
             console.log("🚀  response:-", response?.data);
+            if (response && response.status == 200) {
+                return response?.data
+            }
         } catch (error) {
             console.log("🚀  error:-", error)
         }
@@ -86,19 +92,19 @@ export const singleManga = createAsyncThunk(
     async (data, thunkApi) => {
         const options = {
             method: 'GET',
-            url: 'https://mangaverse-api.p.rapidapi.com/manga',
+            url: `${baseUrl}`,
             params: {
                 id: '659524dd597f3b00281f06ff'
             },
-            headers: {
-                'x-rapidapi-key': 'd99907482cmsh9ab0fc66bc0daf3p153337jsn95f51e31894e',
-                'x-rapidapi-host': 'mangaverse-api.p.rapidapi.com'
-            }
+            headers: header
         };
 
         try {
             const response = await axios.request(options);
             console.log("🚀  response:-", response?.data);
+            if (response && response.status == 200) {
+                return response?.data
+            }
         } catch (error) {
             console.log("🚀  error:-", error)
         }
